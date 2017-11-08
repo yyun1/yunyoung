@@ -1,0 +1,45 @@
+---
+title: "HW9_Yun_Young"
+output:
+  pdf_document: default
+---
+
+#Problem 2: Duplicate one of the following analysis in python in an RNotebook.
+```{python echo=F, engine.path="C:/ProgramData/Miniconda3/python.exe"}
+
+##This is a code copied and modified from https://github.com/amueller/word_cloud
+##It will take in 'alice' text file and 'alice_mask' image file, then creates wordcloud
+
+from os import path
+from PIL import Image
+import numpy as np
+import matplotlib.pyplot as plt
+from wordcloud import WordCloud, STOPWORDS
+
+d = path.dirname("C:/Users/Administrator/Desktop/R/STAT_5014_yunyoung")
+
+# Read the text and image.
+text = open('alice.txt').read()
+alice_mask = np.array(Image.open("alice_mask.png"))
+
+stopwords = set(STOPWORDS)
+stopwords.add("said")
+
+wc = WordCloud(background_color="white", max_words=2000, mask=alice_mask,
+               stopwords=stopwords)
+
+# generate word cloud
+wc.generate(text)
+
+#Store wc into a file
+wc.to_file("alice.png")
+```
+
+##Result of using wordcloud in alice text and image file
+```{r echo = F, warning=FALSE, message=FALSE}
+##This code loads the image to the output window
+library(imager)
+im<-load.image("alice.png")
+plot(im)
+```
+
